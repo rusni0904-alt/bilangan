@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bilangan Bulat: Koin dan Utang</title>
+<style>
+:root{--bg:#fff;--tx:#111;--bl:#0b3d91;--gr:#0a6b2d;--rd:#b00020;--yl:#ffd400;--ln:#222}
+*{box-sizing:border-box}
+body{margin:0;background:#f2f4f8;color:var(--tx);font:20px/1.5 Arial,Helvetica,sans-serif}
+main{max-width:760px;margin:0 auto;padding:12px}
+section{background:var(--bg);border:3px solid var(--ln);border-radius:14px;padding:16px;margin:14px 0}
+h1{font-size:28px;margin:0 0 8px;color:var(--bl)}
+h2{font-size:24px;margin:0 0 10px;color:var(--bl)}
+ul{padding-left:22px;margin:6px 0}
+button{font:inherit;font-weight:bold;min-height:52px;padding:8px 16px;margin:4px;border:3px solid var(--ln);border-radius:12px;background:#fff;color:var(--tx);cursor:pointer}
+button:hover,button:focus{background:var(--yl);outline:none}
+button.p{background:var(--bl);color:#fff}
+button.g{background:var(--gr);color:#fff}
+button.r{background:var(--rd);color:#fff}
+.box{background:#eef3ff;border-left:8px solid var(--bl);padding:10px 12px;border-radius:8px}
+#tok{display:flex;flex-wrap:wrap;gap:6px;min-height:64px;padding:8px;border:3px dashed var(--ln);border-radius:10px}
+.t{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:26px;border:3px solid #000}
+.t.k{background:var(--gr)}.t.u{background:var(--rd)}
+.t.z{box-shadow:0 0 0 5px var(--yl)}
+svg{width:100%;height:auto;display:block}
+.big{font-size:30px;font-weight:bold;text-align:center}
+.opt{display:block;width:100%;text-align:left}
+.ok{background:#c8f7d4!important}.no{background:#ffd0d6!important}
+#fb1,#fb2,#fb3{font-weight:bold;min-height:30px}
+</style>
+</head>
+<body>
+<main>
+
+<section>
+<h1>BILANGAN BULAT: KOIN DAN UTANG</h1>
+<p><b>Tujuan belajar. Setelah ini, kamu bisa:</b></p>
+<ul>
+<li>Mengenal bilangan positif, nol, dan negatif.</li>
+<li>Menunjukkan bilangan bulat pada garis bilangan.</li>
+<li>Menjumlah bilangan bulat dengan koin dan utang.</li>
+</ul>
+</section>
+
+<section>
+<h2>PEMANTIK</h2>
+<div class="box">Kamu punya uang Rp3.000. Kamu juga punya utang Rp5.000 ke temanmu. Setelah utang dilunasi, uangmu tinggal berapa? Atau malah kurang?</div>
+<p>Pikirkan dulu. Lalu lanjut ke langkah di bawah.</p>
+</section>
+
+<section>
+<h2>PENJELASAN BERTAHAP</h2>
+<div id="step" class="box"></div>
+<p id="sn" style="text-align:center;font-size:16px"></p>
+<div style="text-align:center">
+<button id="back">◀ Kembali</button>
+<button id="next" class="p">Lanjut ▶</button>
+</div>
+</section>
+
+<section>
+<h2>COBA SENDIRI</h2>
+<p>Tekan tombol. Tambah koin atau utang. Lihat nilainya di garis bilangan.</p>
+<div style="text-align:center">
+<button class="g" id="addK">+ Koin (+1)</button>
+<button class="r" id="addU">+ Utang (−1)</button>
+<button id="pair">Pasangkan koin dan utang</button>
+<button id="reset">Ulang</button>
+</div>
+<div id="tok" aria-live="polite"></div>
+<p id="info" style="margin:8px 0"></p>
+<div class="big" id="val"></div>
+<svg id="nl" viewBox="0 0 640 110" role="img" aria-label="Garis bilangan"></svg>
+<p style="font-size:16px">Lingkaran kuning = pasangan koin dan utang. Satu pasangan nilainya 0.</p>
+</section>
+
+<section>
+<h2>TIGA CONTOH SOAL</h2>
+<p><b>Soal 1.</b> Suhu pagi di Dieng −4°C. Lalu naik 7°C. Berapa suhunya sekarang?</p>
+<div id="q1"></div><div id="fb1"></div>
+<p><b>Soal 2.</b> Kamu punya 3 koin dan 7 utang. Berapa nilai totalnya?</p>
+<div id="q2"></div><div id="fb2"></div>
+<p><b>Soal 3.</b> Mana bilangan yang paling kecil?</p>
+<div id="q3"></div><div id="fb3"></div>
+</section>
+
+<section>
+<h2>RANGKUMAN</h2>
+<ul>
+<li>Koin itu positif (+). Utang itu negatif (−).</li>
+<li>Satu koin dan satu utang jadi pasangan nol.</li>
+<li>Nilai total = jumlah koin − jumlah utang.</li>
+<li>Di garis bilangan, makin ke kanan makin besar.</li>
+<li>Makin ke kiri makin kecil. Jadi −9 lebih kecil dari −2.</li>
+</ul>
+</section>
+
+</main>
+<script>
+(function(){
+var steps=[
+["Langkah 1: Koin","Satu koin hijau bernilai +1. Contoh: 3 koin = +3. Ini bilangan positif."],
+["Langkah 2: Utang","Satu utang merah bernilai −1. Contoh: 5 utang = −5. Ini bilangan negatif."],
+["Langkah 3: Nol","Satu koin dan satu utang jadi satu pasangan. Pasangan itu saling menghapus. Nilainya 0."],
+["Langkah 4: Hitung","Contoh: 3 koin dan 5 utang. Ada 3 pasangan. Sisa 2 utang. Jadi nilainya −2."],
+["Langkah 5: Garis bilangan","Letakkan hasilnya di garis bilangan. Kanan nol positif. Kiri nol negatif. Sekarang coba sendiri di bawah!"]
+];
+var si=0,se=document.getElementById("step"),sn=document.getElementById("sn");
+function showStep(){se.innerHTML="<b>"+steps[si][0]+"</b><br>"+steps[si][1];sn.textContent="Langkah "+(si+1)+" dari "+steps.length;
+document.getElementById("back").disabled=si===0;document.getElementById("next").disabled=si===steps.length-1;}
+document.getElementById("next").onclick=function(){if(si<steps.length-1){si++;showStep();}};
+document.getElementById("back").onclick=function(){if(si>0){si--;showStep();}};
+showStep();
+
+var p=3,n=5;
+function draw(){
+var z=Math.min(p,n),tok=document.getElementById("tok"),h="",i;
+for(i=0;i<p;i++)h+='<div class="t k'+(i<z?' z':'')+'">+</div>';
+for(i=0;i<n;i++)h+='<div class="t u'+(i<z?' z':'')+'">−</div>';
+tok.innerHTML=h||"Belum ada koin atau utang.";
+var v=p-n;
+document.getElementById("info").textContent=p+" koin dan "+n+" utang. Pasangan nol: "+z+".";
+document.getElementById("val").textContent="Nilai = "+p+" − "+n+" = "+(v<0?"−"+Math.abs(v):v);
+var s="",x,c=Math.max(-10,Math.min(10,v));
+s+='<line x1="20" y1="60" x2="620" y2="60" stroke="#111" stroke-width="4"/>';
+for(i=-10;i<=10;i++){x=320+i*28;
+s+='<line x1="'+x+'" y1="50" x2="'+x+'" y2="70" stroke="#111" stroke-width="'+(i===0?5:2)+'"/>';
+if(i%2===0)s+='<text x="'+x+'" y="95" text-anchor="middle" font-size="16" font-weight="bold" fill="#111">'+(i<0?"−"+(-i):i)+'</text>';}
+x=320+c*28;
+s+='<circle cx="'+x+'" cy="60" r="14" fill="'+(v<0?"#b00020":v>0?"#0a6b2d":"#0b3d91")+'" stroke="#000" stroke-width="3"/>';
+s+='<text x="'+x+'" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#111">'+(v<0?"−"+Math.abs(v):v)+'</text>';
+document.getElementById("nl").innerHTML=s;}
+document.getElementById("addK").onclick=function(){if(p<15){p++;draw();}};
+document.getElementById("addU").onclick=function(){if(n<15){n++;draw();}};
+document.getElementById("pair").onclick=function(){if(p>0&&n>0){p--;n--;draw();}};
+document.getElementById("reset").onclick=function(){p=3;n=5;draw();};
+draw();
+
+function quiz(id,fb,opts,ans,expl){
+var box=document.getElementById(id),f=document.getElementById(fb);
+opts.forEach(function(o){
+var b=document.createElement("button");b.className="opt";b.textContent=o;
+b.onclick=function(){
+var all=box.querySelectorAll("button");
+if(o===ans){b.className="opt ok";f.textContent="✔ Benar! "+expl;f.style.color="#0a6b2d";}
+else{b.className="opt no";f.textContent="✖ Belum tepat. Coba lagi.";f.style.color="#b00020";}};
+box.appendChild(b);});}
+quiz("q1","fb1",["3°C","−3°C","11°C","−11°C"],"3°C","−4 + 7: 4 utang berpasangan dengan 4 koin. Sisa 3 koin = 3.");
+quiz("q2","fb2",["−4","4","10","−10"],"−4","3 pasangan nol. Sisa 4 utang. Nilainya −4.");
+quiz("q3","fb3",["3","−1","0","−6"],"−6","−6 paling kiri di garis bilangan, jadi paling kecil.");
+})();
+</script>
+</body>
+</html>
